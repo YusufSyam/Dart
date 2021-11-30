@@ -9,6 +9,10 @@ void main() {
   // Kita juga bisa mendeklarasikan tipe data dynamic secara explisit
   List<dynamic> dynamicList = [1, 'String'];
 
+  // Deklarasi list dengan fixed length
+  int length = 5;
+  var fixedLengthList = List.filled(length, []);
+
   // ---------------- Mendapatkan nilai list --------------------
   print(intList[0]);
 
