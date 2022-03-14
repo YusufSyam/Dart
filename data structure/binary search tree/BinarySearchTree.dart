@@ -6,7 +6,6 @@ import 'dart:io';
 class BinarySearchTree {
   TreeNode? root = null;
   int totalNode = 0;
-  int traversedNode = 0;
   int max = 0;
   int min = 0;
   bool isSearchedNodeExist = false;
@@ -108,8 +107,6 @@ class BinarySearchTree {
     if (this.root == null) {
       print('There is no data yet');
       return;
-    } else {
-      this.traversedNode = 1;
     }
 
     if (method == null) {
@@ -117,7 +114,8 @@ class BinarySearchTree {
     }
 
     if (method == 'inorder') {
-      // Todo inorder
+      setMax(this.root);
+      inOrderTraversal(this.root);
     } else if (method == 'postorder') {
       postOrderTraversal(this.root);
     } else if (method == 'preorder') {
@@ -127,8 +125,22 @@ class BinarySearchTree {
       print('Traverse method has been set to postorder traversal');
       postOrderTraversal(this.root);
     }
+  }
 
-    // print(this.traversalResult.substring(0, (this.traversalResult.length - 4)));
+  void inOrderTraversal(TreeNode? currNode) {
+    TreeNode? left_child = currNode!.left;
+    TreeNode? right_child = currNode.right;
+
+    if (left_child != null) {
+      inOrderTraversal(left_child);
+    }
+
+    stdout.write(
+        '${currNode.data}' + (currNode.data == this.max ? '\n' : ' -> '));
+
+    if (right_child != null) {
+      inOrderTraversal(right_child);
+    }
   }
 
   void postOrderTraversal(TreeNode? currNode) {
@@ -136,12 +148,10 @@ class BinarySearchTree {
     TreeNode? right_child = currNode.right;
 
     if (left_child != null) {
-      this.traversedNode += 1;
       postOrderTraversal(left_child);
     }
 
     if (right_child != null) {
-      this.traversedNode += 1;
       postOrderTraversal(right_child);
     }
 
@@ -156,12 +166,10 @@ class BinarySearchTree {
         '${currNode.data}' + (currNode.data == this.max ? '\n' : ' -> '));
 
     if (left_child != null) {
-      this.traversedNode += 1;
       preOrderTraversal(left_child);
     }
 
     if (right_child != null) {
-      this.traversedNode += 1;
       preOrderTraversal(right_child);
     }
   }
